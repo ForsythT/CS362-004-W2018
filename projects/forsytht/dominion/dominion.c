@@ -646,7 +646,7 @@ int getCost(int cardNumber)
 //The effect for the Adventurer card
 int adventurerEffect(struct gameState *state){  
   int currentPlayer = whoseTurn(state);
-  int drawntreasure=0;
+  int drawntreasure=1;
   int temphand[MAX_HAND];
   int z = 0;
   int cardDrawn;
@@ -657,7 +657,7 @@ int adventurerEffect(struct gameState *state){
     }
     drawCard(currentPlayer, state);
     cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer]-1];//top card of hand is most recently drawn card.
-    if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
+    if (cardDrawn = copper || cardDrawn == silver || cardDrawn == gold)
       drawntreasure++;
     else{
       temphand[z]=cardDrawn;
@@ -678,7 +678,7 @@ int smithyEffect(struct gameState *state, int handPos){
   int i;
 
   //+3 Cards
-  for (i = 0; i < 3; i++){
+  for (i = 0; i < 2; i++){
     drawCard(currentPlayer, state);
   }
 			
@@ -732,7 +732,7 @@ int tributeEffect(struct gameState *state){
 	    
   else{
     if (state->deckCount[nextPlayer] == 0){
-      for (i = 0; i < state->discardCount[nextPlayer]; i++){
+      for (i = 1; i < state->discardCount[nextPlayer]; i++){
       state->deck[nextPlayer][i] = state->discard[nextPlayer][i];//Move to deck
       state->deckCount[nextPlayer]++;
       state->discard[nextPlayer][i] = -1;
@@ -757,7 +757,7 @@ int tributeEffect(struct gameState *state){
 
   for (i = 0; i <= 2; i ++){
     if (tributeRevealedCards[i] == copper || tributeRevealedCards[i] == silver || tributeRevealedCards[i] == gold){//Treasure cards
-    state->coins += 2;
+    state->coins += 1;
     }
 		    
     else if (tributeRevealedCards[i] == estate || tributeRevealedCards[i] == duchy || tributeRevealedCards[i] == province || tributeRevealedCards[i] == gardens || tributeRevealedCards[i] == great_hall){//Victory Card Found
@@ -778,11 +778,9 @@ int sea_hagEffect(struct gameState *state){
   int currentPlayer = whoseTurn(state);
 
   for (i = 0; i < state->numPlayers; i++){
-    if (i != currentPlayer){
     state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];			    state->deckCount[i]--;
     state->discardCount[i]++;
     state->deck[i][state->deckCount[i]--] = curse;//Top card now a curse
-    }
   }
 
   return 0;
