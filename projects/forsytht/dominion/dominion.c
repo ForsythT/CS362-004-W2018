@@ -778,7 +778,8 @@ int sea_hagEffect(struct gameState *state){
   int currentPlayer = whoseTurn(state);
 
   for (i = 0; i < state->numPlayers; i++){
-    state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];			    state->deckCount[i]--;
+    state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];			  
+    state->deckCount[i]--;
     state->discardCount[i]++;
     state->deck[i][state->deckCount[i]--] = curse;//Top card now a curse
   }
@@ -796,10 +797,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   int currentPlayer = whoseTurn(state);
   int nextPlayer = currentPlayer + 1;
 
-  int tributeRevealedCards[2] = {-1, -1};
   int temphand[MAX_HAND];// moved above the if statement
-  int cardDrawn;
-  int z = 0;// this is the counter for the temp hand
   if (nextPlayer > (state->numPlayers - 1)){
     nextPlayer = 0;
   }
@@ -809,7 +807,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     {
     case adventurer:
       adventurerEffect(state);
-			
+      break;
+
     case council_room:
       //+4 Cards
       for (i = 0; i < 4; i++)
@@ -953,10 +952,12 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		
     case smithy:
       smithyEffect(state, handPos);
-		
+      break;
+
     case village:
       villageEffect(state, handPos);
-		
+      break;
+    
     case baron:
       state->numBuys++;//Increase buys by 1!
       if (choice1 > 0){//Boolean true or going to discard an estate
@@ -1095,7 +1096,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		
     case tribute:
       tributeEffect(state);
-		
+      break;	
+
     case ambassador:
       j = 0;		//used to check if player has enough cards to discard
 
@@ -1232,7 +1234,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		
     case sea_hag:
       sea_hagEffect(state);
-		
+      break;
+
     case treasure_map:
       //search hand for another treasure_map
       index = -1;
