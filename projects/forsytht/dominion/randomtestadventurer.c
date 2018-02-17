@@ -48,3 +48,55 @@ int checkAdventurer(struct gameState *testG, struct gameState *G){
 	G->numActions--;
 	if(drawntreasure == 3){
 		drawntreasure--;
+	}
+
+	for(i = 0; i < testG->handCount[whoseTurn(testG)]; i++){
+		if((testG->hand[whoseTurn(testG)][i] == copper) || (testG->hand[whoseTurn(testG)][i] == silver) || (testG->hand[whoseTurn(testG)][i] == gold)){
+			numtreasuresafter++;	
+		}
+	}
+
+	gainedTreasures = numtreasuresafter - numtreasures;
+	
+	printf("Gained Treasures: %d, Expected: %d\n\n", gainedTreasures, drawntreasure);
+	if(gainedTreasures == drawntreasure){
+		printf("TREASURE TEST PASSED\n\n");
+	}
+	else{
+		printf("TREASURE TEST FAILED\n\n");
+	}
+
+	printf("Hand Count: %d, Expected Hand: %d\n", testG->handCount[whoseTurn(testG)], G->handCount[player]);
+	if (G->handCount[player] == testG->handCount[whoseTurn(testG)]){
+		printf("HAND COUNT TEST PASSED\n\n");
+	}
+	else
+		printf("HAND COUNT TEST FAILED\n\n");
+
+	numCards = testG->deckCount[whoseTurn(testG)] + testG->discardCount[whoseTurn(testG)];
+	numCardsG = G->deckCount[player] + G->discardCount[player];
+
+	printf("Num Cards in Discard/Deck: %d, Expected: %d\n\n", numCards, numCardsG);
+	if(numCards == numCardsG){
+		printf("OTHER CARD COUNT TEST PASSED\n\n");
+	}
+	else{
+		printf("OTHER CARD COUNT TEST FAILED\n\n");
+	}
+	
+	printf("Action Count: %d, Expected Action: %d\n", testG->numActions, G->numActions);
+	if (G->numActions == testG->numActions){
+		printf("ACTIONS COUNT TEST PASSED\n\n");
+	}
+	else
+		printf("ACTIONS COUNT TEST FAILED\n\n");
+
+	return 0;
+}
+
+int main() {
+	int seed = 1000;
+	int numPlayers = 2;
+	int k[10] = {adventurer, council_room, feast, gardens, mine
+               , remodel, smithy, village, baron, great_hall};
+	struct gameState G, testG;
