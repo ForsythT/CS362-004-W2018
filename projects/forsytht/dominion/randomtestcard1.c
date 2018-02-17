@@ -48,3 +48,54 @@ int checkVillage(struct gameState *testG, struct gameState *G){
 	else
 		printf("ACTIONS COUNT TEST FAILED\n\n");
 
+	return 0;
+}
+
+int main() {
+	int seed = 1000;
+	int numPlayer = 4;
+	int k[10] = {adventurer, council_room, feast, gardens, mine
+               , remodel, smithy, village, baron, great_hall};
+	struct gameState G, testG;
+	
+	initializeGame(numPlayer, k, seed, &testG);
+
+	memcpy(&G, &testG, sizeof(struct gameState)); // create a copy of the game
+
+	printf("\nTESTING Village Card:\n\n");
+
+	testG.hand[whoseTurn(&testG)][0] = village; // make smithy the first card in hand
+
+	printf("With 5 Cards on Deck, 0 on Discard\n========================================\n");	
+	checkVillage(&testG, &G);
+
+	memset(&testG, 23, sizeof(struct gameState)); // clear the game state
+	memset(&G, 23, sizeof(struct gameState)); // clear the game state
+	initializeGame(numPlayer, k, seed, &testG); // make a new game
+	
+	memcpy(testG.discard[whoseTurn(&testG)], testG.deck[whoseTurn(&testG)], sizeof(int) * testG.deckCount[whoseTurn(&testG)]); // move deck into discard
+
+	while(testG.deckCount[whoseTurn(&testG)] > 0){ //empty deck and fill discard
+		testG.deckCount[whoseTurn(&testG)]--;
+		testG.discardCount[whoseTurn(&testG)]++;
+	}
+
+	testG.hand[whoseTurn(&testG)][0] = village; // make smithy the first card in hand
+
+	memcpy(&G, &testG, sizeof(struct gameState)); // create a copy of the game
+	
+	printf("With 0 Cards on Deck, 5 on Discard\n========================================\n");
+	checkVillage(&testG, &G);
+
+	memset(&testG, 23, sizeof(struct gameState)); // clear the game state
+	memset(&G, 23, sizeof(struct gameState)); // clear the game state
+	initializeGame(numPlayer, k, seed, &testG); // make a new game
+
+	while(testG.deckCount[whoseTurn(&testG)] > 0){ //empty deck
+		testG.deckCount[whoseTurn(&testG)]--;
+	}
+
+	testG.hand[whoseTurn(&testG)][0] = village; // make smithy the first card in hand
+
+	memcpy(&G, &testG, sizeof(struct gameState)); // create a copy of the game
+	
