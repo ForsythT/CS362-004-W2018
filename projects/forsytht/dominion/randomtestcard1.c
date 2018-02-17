@@ -3,99 +3,127 @@
 #include <string.h>
 #include <stdio.h>
 #include <assert.h>
+#include <time.h>
+#include <stdlib.h>
+#include <math.h>
 #include "rngs.h"
 
-// set NOISY_TEST to 0 to remove printfs from output
-#define NOISY_TEST 0
+// set NOISY_TEST to 0 to include printfs from output
+#define NOISY_TEST 1
 
-int checkVillage(struct gameState *testG, struct gameState *G){
-	int player = 0;
+int checkVillage(struct gameState *testG, struct gameState *G, int player){
+	int numFails = 0;
 
 	playCard(0, 0, 0, 0, testG);	
 	
 	drawCard(player, G); //draw 3 cards
 	
-	discardCard(0, player, G, 0);
 	G->numActions--;
 	G->numActions += 2;
 
-
+#if(NOISY_TEST == 0)
 	printf("Hand Count: %d, Expected Hand: %d\n", testG->handCount[whoseTurn(testG)], G->handCount[player]);
-	if (G->handCount[player] == testG->handCount[whoseTurn(testG)]){
-		printf("HAND COUNT TEST PASSED\n\n");
-	}
-	else
+#endif		
+	if (G->handCount[player] != testG->handCount[whoseTurn(testG)]){
+#if(NOISY_TEST == 0)
 		printf("HAND COUNT TEST FAILED\n\n");
-	
+#endif		
+		numFails++;
+	}
+	else{
+#if(NOISY_TEST == 0)
+		printf("HAND COUNT TEST PASSED\n\n");
+#endif		
+	}
+#if(NOISY_TEST == 0)
 	printf("Deck Count: %d, Expected Deck: %d\n", testG->deckCount[whoseTurn(testG)], G->deckCount[player]);
-	if (G->deckCount[player] == testG->deckCount[whoseTurn(testG)]){
-		printf("DECK COUNT TEST PASSED\n\n");
-	}
-	else
+#endif		
+	if (G->deckCount[player] != testG->deckCount[whoseTurn(testG)]){
+#if(NOISY_TEST == 0)
 		printf("DECK COUNT TEST FAILED\n\n");
-
+#endif		
+		numFails++;
+	}
+	else{
+#if(NOISY_TEST == 0)
+		printf("DECK COUNT TEST PASSED\n\n");
+#endif		
+	}
+#if(NOISY_TEST == 0)
 	printf("Discard Count: %d, Expected Discard: %d\n", testG->discardCount[whoseTurn(testG)], G->discardCount[player]);
-	if (G->discardCount[player] == testG->discardCount[whoseTurn(testG)]){
-		printf("DISCARD COUNT TEST PASSED\n\n");
-	}
-	else
+#endif		
+	if (G->discardCount[player] != testG->discardCount[whoseTurn(testG)]){
+#if(NOISY_TEST == 0)
 		printf("DISCARD COUNT TEST FAILED\n\n");
-
-	printf("Action Count: %d, Expected Action: %d\n", testG->numActions, G->numActions);
-	if (G->numActions == testG->numActions){
-		printf("ACTIONS COUNT TEST PASSED\n\n");
+#endif		
+		numFails++;
 	}
-	else
+	else{
+#if(NOISY_TEST == 0)
+		printf("DISCARD COUNT TEST PASSED\n\n");
+#endif		
+	}
+#if(NOISY_TEST == 0)
+//	printf("Action Count: %d, Expected Action: %d\n", testG->numActions, G->numActions);
+#endif		
+	if (G->numActions != testG->numActions){
+#if(NOISY_TEST == 0)
 		printf("ACTIONS COUNT TEST FAILED\n\n");
-
-	return 0;
+#endif		
+		numFails++;
+	}
+	else{
+#if(NOISY_TEST == 0)
+		printf("ACTIONS COUNT TEST PASSED\n\n");
+#endif		
+	}
+	
+	return numFails;
 }
 
 int main() {
-	int seed = 1000;
-	int numPlayer = 4;
-	int k[10] = {adventurer, council_room, feast, gardens, mine
-               , remodel, smithy, village, baron, great_hall};
+	srand(time(NULL));
+	int i, n, p, numPass, r;
+	int numFails = 0;
+
+	int k[10] = {adventurer, council_room, feast, gardens, mine, remodel, smithy, village, baron, great_hall};
+
+	SelectStream(2);
+	PutSeed(3);
+
 	struct gameState G, testG;
-	
-	initializeGame(numPlayer, k, seed, &testG);
-
-	memcpy(&G, &testG, sizeof(struct gameState)); // create a copy of the game
-
-	printf("\nTESTING Village Card:\n\n");
-
-	testG.hand[whoseTurn(&testG)][0] = village; // make smithy the first card in hand
-
-	printf("With 5 Cards on Deck, 0 on Discard\n========================================\n");	
-	checkVillage(&testG, &G);
-
-	memset(&testG, 23, sizeof(struct gameState)); // clear the game state
-	memset(&G, 23, sizeof(struct gameState)); // clear the game state
-	initializeGame(numPlayer, k, seed, &testG); // make a new game
-	
-	memcpy(testG.discard[whoseTurn(&testG)], testG.deck[whoseTurn(&testG)], sizeof(int) * testG.deckCount[whoseTurn(&testG)]); // move deck into discard
-
-	while(testG.deckCount[whoseTurn(&testG)] > 0){ //empty deck and fill discard
-		testG.deckCount[whoseTurn(&testG)]--;
-		testG.discardCount[whoseTurn(&testG)]++;
+	for (n = 0; n < 20000; n++) {
+		initializeGame(2, k, 1000, &G);
+		//for (i = 0; i < sizeof(struct gameState); i++) {
+		//	printf("Testing for Seg Fault\n");
+		//	((char*)&G)[i] = floor(Random() * 256);
+		//}
+	//	G.numPlayers = 2;
+		p = rand() % 2;
+		G.whoseTurn = p;
+		G.deckCount[p] = rand() % MAX_DECK;
+		G.discardCount[p] = rand() % MAX_DECK;
+		G.handCount[p] = rand() % MAX_HAND;
+		for(i = 0; i < G.handCount[p]; i++){
+			r = rand() % 27;
+			G.hand[p][i] = r;
+		}
+		for(i = 0; i < G.deckCount[p]; i++){
+			r = rand() % 27;
+			G.deck[p][i] = r;
+		}
+		for(i = 0; i < G.discardCount[p]; i++){
+			r = rand() % 27;
+			G.discard[p][i] = r;
+		}
+		memcpy(&testG, &G, sizeof(struct gameState));
+		testG.hand[p][0] = village; // make village the first card in hand
+		numFails += checkVillage(&testG, &G, p);
 	}
 
-	testG.hand[whoseTurn(&testG)][0] = village; // make smithy the first card in hand
+	numPass = ((n+1)*4) - numFails;
 
-	memcpy(&G, &testG, sizeof(struct gameState)); // create a copy of the game
-	
-	printf("With 0 Cards on Deck, 5 on Discard\n========================================\n");
-	checkVillage(&testG, &G);
+	printf("Village Results\nPassed %d Tests\nFailed %d Tests\n", numPass, numFails);
 
-	memset(&testG, 23, sizeof(struct gameState)); // clear the game state
-	memset(&G, 23, sizeof(struct gameState)); // clear the game state
-	initializeGame(numPlayer, k, seed, &testG); // make a new game
-
-	while(testG.deckCount[whoseTurn(&testG)] > 0){ //empty deck
-		testG.deckCount[whoseTurn(&testG)]--;
-	}
-
-	testG.hand[whoseTurn(&testG)][0] = village; // make smithy the first card in hand
-
-	memcpy(&G, &testG, sizeof(struct gameState)); // create a copy of the game
-	
+	return 0;
+}	

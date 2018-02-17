@@ -8,8 +8,8 @@
 #include <math.h>
 #include "rngs.h"
 
-// set NOISY_TEST to 0 to remove printfs from output
-#define NOISY_TEST 0
+// set NOISY_TEST to 0 to include printfs from output
+#define NOISY_TEST 1
 
 int checkAdventurer(struct gameState *testG, struct gameState *G, int player){
 	int i, gainedTreasures, numCards, numCardsG, cardDrawn;
@@ -64,43 +64,67 @@ int checkAdventurer(struct gameState *testG, struct gameState *G, int player){
 
 	gainedTreasures = numtreasuresafter - numtreasures;
 	
-//	printf("Gained Treasures: %d, Expected: %d\n\n", gainedTreasures, drawntreasure);
+#if(NOISY_TEST == 0)
+	printf("Gained Treasures: %d, Expected: %d\n\n", gainedTreasures, drawntreasure);
+#endif
 	if(gainedTreasures != drawntreasure){
-//		printf("TREASURE TEST FAILED\n\n");
+#if(NOISY_TEST == 0)
+		printf("TREASURE TEST FAILED\n\n");
+#endif
 		numFails++;
 	}
 	else{
-//		printf("TREASURE TEST PASSED\n\n");
+#if(NOISY_TEST == 0)
+		printf("TREASURE TEST PASSED\n\n");
+#endif
 	}
 
-	//printf("Hand Count: %d, Expected Hand: %d\n", testG->handCount[player], G->handCount[player]);
+#if(NOISY_TEST == 0)
+	printf("Hand Count: %d, Expected Hand: %d\n", testG->handCount[player], G->handCount[player]);
+#endif
 	if (G->handCount[player] != testG->handCount[player]){
-//		printf("HAND COUNT TEST FAILED\n\n");
+#if(NOISY_TEST == 0)
+		printf("HAND COUNT TEST FAILED\n\n");
+#endif
 		numFails++;
 	}
 	else{
-//		printf("HAND COUNT TEST PASSED\n\n");
+#if(NOISY_TEST == 0)
+		printf("HAND COUNT TEST PASSED\n\n");
+#endif
 	}
 
 	numCards = testG->deckCount[player] + testG->discardCount[player];
 	numCardsG = G->deckCount[player] + G->discardCount[player];
 
-	//printf("Num Cards in Discard/Deck: %d, Expected: %d\n\n", numCards, numCardsG);
+#if(NOISY_TEST == 0)
+	printf("Num Cards in Discard/Deck: %d, Expected: %d\n\n", numCards, numCardsG);
+#endif
 	if(numCards != numCardsG){
-	//	printf("OTHER CARD COUNT TEST FAILED\n\n");
+#if(NOISY_TEST == 0)
+		printf("OTHER CARD COUNT TEST FAILED\n\n");
+#endif
 		numFails++;
 	}
 	else{
-	//	printf("OTHER CARD COUNT TEST PASSED\n\n");
+#if(NOISY_TEST == 0)
+		printf("OTHER CARD COUNT TEST PASSED\n\n");
+#endif
 	}
 	
-	//printf("Action Count: %d, Expected Action: %d\n", testG->numActions, G->numActions);
+#if(NOISY_TEST == 0)
+	printf("Action Count: %d, Expected Action: %d\n", testG->numActions, G->numActions);
+#endif
 	if (G->numActions != testG->numActions){
-	//	printf("ACTIONS COUNT TEST FAILED\n\n");
+#if(NOISY_TEST == 0)
+		printf("ACTIONS COUNT TEST FAILED\n\n");
+#endif
 		numFails++;
 	}
 	else{
-	//	printf("ACTIONS COUNT TEST PASSED\n\n");
+#if(NOISY_TEST == 0)
+		printf("ACTIONS COUNT TEST PASSED\n\n");
+#endif
 	}
 
 	return numFails;
