@@ -43,13 +43,13 @@ randomtestcard1.out: randomtestcard1.c dominion.o
 	randomtestcard1 >> randomtestcard1.out
 	gcov -abcfu dominion.c >> randomtestcard1.out
 
-#randomtestcard2.out: randomtestcard2.c dominion.o
-#
-#	echo "randomtestcard2.c:" >> randomtestcard2.out
-#	gcc -o randomtestcard2 dominion.o rngs.o randomtestcard2.c $(CFLAGS)
-#	randomtestcard2 >> randomtestcard2.out
-#	gcov -abcfu dominion.c >> randomtestcard2.out
-#
+randomtestcard2.out: randomtestcard2.c dominion.o
+
+	echo "randomtestcard2.c:" >> randomtestcard2.out
+	gcc -o randomtestcard2 dominion.o rngs.o randomtestcard2.c $(CFLAGS)
+	randomtestcard2 >> randomtestcard2.out
+	gcov -abcfu dominion.c >> randomtestcard2.out
+
 player: player.c interface.o
 	gcc -o player player.c -g  dominion.o rngs.o interface.o $(CFLAGS)
 
