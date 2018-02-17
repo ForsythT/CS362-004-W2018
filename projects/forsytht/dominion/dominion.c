@@ -809,7 +809,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     {
     case adventurer:
       adventurerEffect(state);
-			
+      return 0;
+
     case council_room:
       //+4 Cards
       for (i = 0; i < 4; i++)
@@ -953,10 +954,12 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		
     case smithy:
       smithyEffect(state, handPos);
-		
+      return 0;
+
     case village:
       villageEffect(state, handPos);
-		
+      return 0;		
+
     case baron:
       state->numBuys++;//Increase buys by 1!
       if (choice1 > 0){//Boolean true or going to discard an estate
@@ -1232,7 +1235,7 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		
     case sea_hag:
       sea_hagEffect(state);
-		
+      return 0;		
     case treasure_map:
       //search hand for another treasure_map
       index = -1;
