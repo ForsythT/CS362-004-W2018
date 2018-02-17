@@ -775,7 +775,6 @@ int tributeEffect(struct gameState *state){
 //The effect for the Sea Hag card
 int sea_hagEffect(struct gameState *state){
   int i;
-  int currentPlayer = whoseTurn(state);
 
   for (i = 0; i < state->numPlayers; i++){
     state->discard[i][state->discardCount[i]] = state->deck[i][state->deckCount[i]--];			    state->deckCount[i]--;
@@ -796,10 +795,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
   int currentPlayer = whoseTurn(state);
   int nextPlayer = currentPlayer + 1;
 
-  int tributeRevealedCards[2] = {-1, -1};
   int temphand[MAX_HAND];// moved above the if statement
-  int cardDrawn;
-  int z = 0;// this is the counter for the temp hand
+  
   if (nextPlayer > (state->numPlayers - 1)){
     nextPlayer = 0;
   }
