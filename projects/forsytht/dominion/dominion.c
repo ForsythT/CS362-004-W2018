@@ -809,7 +809,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
     {
     case adventurer:
       adventurerEffect(state);
-			
+      break;
+      
     case council_room:
       //+4 Cards
       for (i = 0; i < 4; i++)
@@ -953,10 +954,12 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		
     case smithy:
       smithyEffect(state, handPos);
-		
+      break;
+
     case village:
       villageEffect(state, handPos);
-		
+      break;	
+
     case baron:
       state->numBuys++;//Increase buys by 1!
       if (choice1 > 0){//Boolean true or going to discard an estate
@@ -1095,7 +1098,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		
     case tribute:
       tributeEffect(state);
-		
+      break;	
+
     case ambassador:
       j = 0;		//used to check if player has enough cards to discard
 
@@ -1232,7 +1236,8 @@ int cardEffect(int card, int choice1, int choice2, int choice3, struct gameState
 		
     case sea_hag:
       sea_hagEffect(state);
-		
+      break;	
+
     case treasure_map:
       //search hand for another treasure_map
       index = -1;
