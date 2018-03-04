@@ -1,0 +1,7 @@
+The first bug I found was in the adventurer card. Instead of incrementing the amount of drawntreasures when found, it was decrementing it (line 656 in dominion.c). This created an infinite never ending loop. A small bonus bug is the adventurer card is never being discarded. This is seen as the total number of cards in hand after being played is 7 when it should be 6 (gain 2, discard 1).
+
+Another bug in adventurer that I found was found using the random test. The index variable that increments the temp hand is being incremented incorrectly. It is a pointer being passed by reference, but is not dereferenced before incrementing (line 660 in dominion.c). This means it is incrementing the address of the pointer rather than the number that is being pointed to, so the program seg faults when it reaches an address containing a number out of bounds of the temp hand (> 500). 
+
+Another bug I found is in the smithy card. It is only drawing 2 cards instead of three (line 672 in dominion.c). 
+
+There is also a bonus bug found in Sea Hag (which is unchanged by my teammate) that is elaborated more on in the PDF file.
