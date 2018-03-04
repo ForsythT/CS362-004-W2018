@@ -1,0 +1,188 @@
+cardtest2.c:
+
+TESTING Smithy Card:
+
+With 5 Cards on Deck, 0 on Discard
+========================================
+Hand Count: 7, Expected Hand: 7
+HAND COUNT TEST PASSED
+
+Deck Count: 2, Expected Deck: 2
+DECK COUNT TEST PASSED
+
+Discard Count: 0, Expected Discard: 0
+DISCARD COUNT TEST PASSED
+
+Action Count: 0, Expected Action: 0
+ACTIONS COUNT TEST PASSED
+
+With 0 Cards on Deck, 5 on Discard
+========================================
+Hand Count: 7, Expected Hand: 7
+HAND COUNT TEST PASSED
+
+Deck Count: 2, Expected Deck: 2
+DECK COUNT TEST PASSED
+
+Discard Count: 0, Expected Discard: 0
+DISCARD COUNT TEST PASSED
+
+Action Count: 0, Expected Action: 0
+ACTIONS COUNT TEST PASSED
+
+With 0 Cards on Deck, 0 on Discard
+========================================
+Hand Count: 4, Expected Hand: 4
+HAND COUNT TEST PASSED
+
+Deck Count: 0, Expected Deck: 0
+DECK COUNT TEST PASSED
+
+Discard Count: 0, Expected Discard: 0
+DISCARD COUNT TEST PASSED
+
+Action Count: 0, Expected Action: 0
+ACTIONS COUNT TEST PASSED
+
+Function 'updateCoins'
+Lines executed:81.82% of 11
+No branches
+No calls
+
+Function 'gainCard'
+Lines executed:0.00% of 13
+No branches
+No calls
+
+Function 'discardCard'
+Lines executed:84.62% of 13
+No branches
+No calls
+
+Function 'cardEffect'
+Lines executed:3.83% of 183
+No branches
+No calls
+
+Function 'sea_hagEffect'
+Lines executed:0.00% of 6
+No branches
+No calls
+
+Function 'tributeEffect'
+Lines executed:0.00% of 38
+No branches
+No calls
+
+Function 'villageEffect'
+Lines executed:0.00% of 6
+No branches
+No calls
+
+Function 'smithyEffect'
+Lines executed:100.00% of 6
+No branches
+No calls
+
+Function 'adventurerEffect'
+Lines executed:0.00% of 15
+No branches
+No calls
+
+Function 'getCost'
+Lines executed:0.00% of 30
+No branches
+No calls
+
+Function 'drawCard'
+Lines executed:100.00% of 22
+No branches
+No calls
+
+Function 'getWinners'
+Lines executed:0.00% of 24
+No branches
+No calls
+
+Function 'scoreFor'
+Lines executed:0.00% of 24
+No branches
+No calls
+
+Function 'isGameOver'
+Lines executed:0.00% of 10
+No branches
+No calls
+
+Function 'endTurn'
+Lines executed:0.00% of 20
+No branches
+No calls
+
+Function 'whoseTurn'
+Lines executed:100.00% of 2
+No branches
+No calls
+
+Function 'fullDeckCount'
+Lines executed:0.00% of 9
+No branches
+No calls
+
+Function 'supplyCount'
+Lines executed:0.00% of 2
+No branches
+No calls
+
+Function 'handCard'
+Lines executed:100.00% of 3
+No branches
+No calls
+
+Function 'numHandCards'
+Lines executed:0.00% of 2
+No branches
+No calls
+
+Function 'buyCard'
+Lines executed:0.00% of 13
+No branches
+No calls
+
+Function 'playCard'
+Lines executed:71.43% of 14
+No branches
+No calls
+
+Function 'shuffle'
+Lines executed:100.00% of 16
+No branches
+No calls
+
+Function 'initializeGame'
+Lines executed:85.48% of 62
+No branches
+No calls
+
+Function 'kingdomCards'
+Lines executed:0.00% of 13
+No branches
+No calls
+
+Function 'newGame'
+Lines executed:0.00% of 3
+No branches
+No calls
+
+Function 'compare'
+Lines executed:83.33% of 6
+No branches
+No calls
+
+File 'dominion.c'
+Lines executed:25.62% of 566
+Branches executed:27.49% of 411
+Taken at least once:17.76% of 411
+Calls executed:17.17% of 99
+Creating 'dominion.c.gcov'
+
