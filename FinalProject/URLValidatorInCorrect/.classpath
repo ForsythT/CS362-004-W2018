@@ -3,6 +3,8 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry kind="src" path="test"/>
-	<classpathentry kind="lib" path="/scratch/workspace/Classes/Winter 2018/eclipse/URLValidatorCorrect2018/junit-4.12.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/5"/>
+	<classpathentry kind="lib" path="C:/Users/forsy/OneDrive/Desktop/CS 362/junit-4.12.jar"/>
+	<classpathentry kind="lib" path="C:/Users/forsy/OneDrive/Desktop/CS 362/hamcrest-core-1.3.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
